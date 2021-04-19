@@ -6,6 +6,7 @@ function App() {
   return (
     <div className="container">
       {/* .row>.col */}
+      
       <div className="row">
         <div className="col">
 

@@ -1,3 +1,10 @@
+## GIT 
+cd ..
+git clone https://bitbucket.org/ev45ive/sages-react-open-kwiecien.git sages-react-kwiecien
+cd sages-react-kwiecien  
+####  <!-- LUB  "File -> Open Folder -> sages-react-kwiecien" -->
+npm i 
+npm start
 
 ## Instalacje
 node -v
