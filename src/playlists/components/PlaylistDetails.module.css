@@ -1,0 +1,11 @@
+.privatePublic {
+    border-bottom: 1px solid currentColor;
+}
+
+.private {
+    color: red;
+}
+
+.public {
+    color: red;
+}
