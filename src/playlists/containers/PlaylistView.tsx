@@ -30,13 +30,33 @@ interface Props { }
 export const PlaylistView = (props: Props) => {
     const [mode, setMode] = useState<'details' | 'edit'>('details')
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(playlistData[2])
+    const [playlists, setPlaylists] = useState(playlistData)
 
     const switchToEdit = () => setMode('edit')
     const cancel = () => setMode('details')
-    const save = () => setMode('details')
+    const save = (draft: Playlist) => {
+        // ?????
+        console.log('dane!!!', draft)
+
+        // playlists[1] = draft;
+        // setPlaylists(playlists) // Mutable State // No Render
+
+        // setPlaylists([...playlists, draft]) // Immutable / copy - render!
+        // console.log(playlists) // old playlists (before setPlaylists)
+
+        // Apply changes to pending / next State
+        // setPlaylists(prevState => {
+        //     console.log(prevState)
+        //     return prevState
+        // })
+
+        setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
+        setSelectedPlaylist(draft)
+        setMode('details')
+    }
 
     const changePlaylist = (id: Playlist['id']) => {
-        setSelectedPlaylist(playlistData.find(p => p.id === id))
+        setSelectedPlaylist(playlists.find(p => p.id === id))
     }
 
     return (
@@ -46,7 +66,7 @@ export const PlaylistView = (props: Props) => {
                     <PlaylistList
                         onSelect={changePlaylist}
                         selected={selectedPlaylist?.id}
-                        playlists={playlistData} />
+                        playlists={playlists} />
 
                 </div>
                 <div className="col">

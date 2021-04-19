@@ -4,7 +4,7 @@ import { Playlist } from '../model/Playlist'
 interface Props {
     playlist: Playlist
     onCancel: () => void
-    onSave: () => void
+    onSave: (draft: Playlist) => void
 }
 
 // tree.child.cild2.hooks = ['placki2']
@@ -17,6 +17,13 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
 
     const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
         setName(event.currentTarget.value.replace(/\d/g, '*'))
+    }
+
+    const handleSave = () => {
+        // { name, isPublic, description },
+        onSave({
+            ...playlist, name, public: isPublic, description
+        })
     }
 
     return (
@@ -43,7 +50,7 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
                     onChange={event => setDescription(event.currentTarget.value)} />
             </div>
             <button className="btn btn-danger" onClick={onCancel}>Cancel</button>
-            <button className="btn btn-success" onClick={onSave}>Save</button>
+            <button className="btn btn-success" onClick={handleSave}>Save</button>
         </div>
     )
 }
