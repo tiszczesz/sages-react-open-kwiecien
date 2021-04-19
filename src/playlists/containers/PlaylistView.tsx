@@ -35,21 +35,6 @@ export const PlaylistView = (props: Props) => {
     const switchToEdit = () => setMode('edit')
     const cancel = () => setMode('details')
     const save = (draft: Playlist) => {
-        // ?????
-        console.log('dane!!!', draft)
-
-        // playlists[1] = draft;
-        // setPlaylists(playlists) // Mutable State // No Render
-
-        // setPlaylists([...playlists, draft]) // Immutable / copy - render!
-        // console.log(playlists) // old playlists (before setPlaylists)
-
-        // Apply changes to pending / next State
-        // setPlaylists(prevState => {
-        //     console.log(prevState)
-        //     return prevState
-        // })
-
         setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
         setSelectedPlaylist(draft)
         setMode('details')
