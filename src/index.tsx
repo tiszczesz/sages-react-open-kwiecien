@@ -7,16 +7,16 @@ import reportWebVitals from './reportWebVitals';
 window.React = React
 window.ReactDOM = ReactDOM
 
+const user = { name: 'Alice', color: 'hotpink', pets: [{ id: 1, name: 'cat' }, { id: 2, name: 'fish' }] }
+
 const vdiv = React.createElement('div', {
-  id: '123', style: {
-    color: 'black', background: 'hotpink', padding: '20px'
-  }
+  id: '123', style: { color: 'black', background: user.color, padding: '20px' }
 },
-  React.createElement('p', {},
-    'Bob ma kota ',
-    React.createElement('input')
-  )
+  user.pets.map(pet => React.createElement('p', { key: pet.id }, user.name + ' have a  ' + pet.name)),
+  'Add more : ',
+  React.createElement('input')
 )
+
 ReactDOM.render(vdiv, document.getElementById('root'))
 
 // ReactDOM.render(
