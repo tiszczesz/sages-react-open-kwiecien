@@ -10,16 +10,19 @@ interface Props {
 
 export const PlaylistForm = ({ playlist }: Props) => {
     const [name, setName] = useState(playlist.name)
+    const [isPublic, setIsPublic] = useState(playlist.public)
+    const [description, setDescription] = useState(playlist.description)
 
     const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
-        // console.log((event.target as any).value)
-        setName((event.target as HTMLInputElement).value.replace(/\d/g, '*'))
+        setName(event.currentTarget.value.replace(/\d/g, '*'))
     }
 
     return (
         <div>
             PlaylistForm
             {/* .form-group>label{Name:}+input.form-control */}
+
+            <pre>{JSON.stringify({ name, isPublic, description }, null, 2)}</pre>
 
             <div className="form-group">
                 <label htmlFor="playlist_name">Name:</label>
@@ -30,13 +33,15 @@ export const PlaylistForm = ({ playlist }: Props) => {
             </div>
 
             <div className="form-check">
-                <input className="form-check-input" type="checkbox" defaultChecked={playlist.public} id="playlist_public" />
+                <input className="form-check-input" type="checkbox" defaultChecked={playlist.public} id="playlist_public"
+                    onChange={() => setIsPublic(!isPublic)} />
                 <label className="form-check-label" htmlFor="publicCheck"> Public</label>
             </div>
 
             <div className="form-group mt-2">
                 <label htmlFor="playlist_description">Description:</label>
-                <textarea className="form-control" id="playlist_description" defaultValue={playlist.description} />
+                <textarea className="form-control" id="playlist_description" defaultValue={playlist.description}
+                    onChange={event => setDescription(event.currentTarget.value)} />
             </div>
 
         </div>
