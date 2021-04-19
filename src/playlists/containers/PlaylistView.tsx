@@ -29,10 +29,16 @@ interface Props { }
 
 export const PlaylistView = (props: Props) => {
     const [mode, setMode] = useState<'details' | 'edit'>('details')
+    const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(playlistData[0])
 
     const edit = () => setMode('edit')
     const cancel = () => setMode('details')
     const save = () => setMode('details')
+
+    const changePlaylist = (id: Playlist['id']) => {
+        console.log(id)
+        setSelectedPlaylist(playlistData.find(p => p.id === id))
+    }
 
     return (
         <div>
@@ -41,20 +47,21 @@ export const PlaylistView = (props: Props) => {
             {/* .row>.col*2 */}
             <div className="row">
                 <div className="col">
-                    <PlaylistList 
-                    selected="234"
-                    playlists={playlistData} />
+                    <PlaylistList
+                        onSelect={changePlaylist}
+                        selected="234"
+                        playlists={playlistData} />
                 </div>
                 <div className="col">
                     {/* {playlist.public ? 'Yes' : <p>No</p>} */}
 
-                    {mode === 'details' ? <div>
-                        <PlaylistDetails playlist={playlistData[0]} />
+                    {mode === 'details' && selectedPlaylist ? <div>
+                        <PlaylistDetails playlist={selectedPlaylist} />
                         <button className="btn btn-info" onClick={edit}>Edit</button>
                     </div> : null}
 
-                    {mode === 'edit' && <div>
-                        <PlaylistForm playlist={playlistData[0]} />
+                    {mode === 'edit' && selectedPlaylist && <div>
+                        <PlaylistForm playlist={selectedPlaylist} />
                         <button className="btn btn-danger" onClick={cancel}>Cancel</button>
                         <button className="btn btn-success" onClick={save}>Save</button>
                     </div>}
