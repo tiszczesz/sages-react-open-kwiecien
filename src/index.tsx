@@ -25,13 +25,13 @@ const users: User[] = [
   { name: 'Kate', color: 'lightgreen', pets: [{ id: 123, name: 'parrot' }] },
 ]
 
-const UserProfile2 = (props: { user: User }) => React.createElement('div', {
-  id: '123', style: { color: 'black', background: props.user.color, padding: '20px' }
-},
-  props.user.pets.map(pet => React.createElement('p', { key: pet.id }, props.user.name + ' have a  ' + pet.name)),
-  'Add more : ',
-  React.createElement('input')
-)
+// const UserProfile2 = (props: { user: User }) => React.createElement('div', {
+//   id: '123', style: { color: 'black', background: props.user.color, padding: '20px' }
+// },
+//   props.user.pets.map(pet => React.createElement('p', { key: pet.id }, props.user.name + ' have a  ' + pet.name)),
+//   'Add more : ',
+//   React.createElement('input')
+// )
 
 const UserProfile = (props: { user: User }) => <div id="z123" className={"user-profile"} style={
   { color: 'black', background: props.user.color, padding: '20px' }
@@ -43,11 +43,12 @@ const UserProfile = (props: { user: User }) => <div id="z123" className={"user-p
 
 debugger;
 
-ReactDOM.render(React.createElement('div', {},
-  UserProfile({ user: users[0] }),
-  UserProfile({ user: users[1] }),
-  UserProfile({ user: users[2] }),
-), document.getElementById('root'))
+ReactDOM.render(<div>
+  { /* UserProfile({ user: users[0] })  */}
+  <UserProfile user={users[0]} />
+  <UserProfile user={users[1]} />
+  <UserProfile user={users[2]} />
+</div>, document.getElementById('root'))
 
 // ReactDOM.render(
 //   <React.StrictMode>
