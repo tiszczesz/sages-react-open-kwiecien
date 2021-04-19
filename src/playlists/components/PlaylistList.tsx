@@ -3,13 +3,13 @@ import { Playlist } from '../model/Playlist'
 
 interface Props {
     playlists: Playlist[],
-    selected: Playlist['id'];
+    selected: Playlist['id'] | undefined
     onSelect: (id: Playlist['id']) => void
 }
 
-export const PlaylistList = ({ playlists, onSelect }: Props) => {
+export const PlaylistList = ({ playlists, onSelect, selected: parentSelected }: Props) => {
 
-    const [selected, setSelected] = useState("345")
+    // const [selected, setSelected] = useState(parentSelected)
 
     return (
         <div>
@@ -19,9 +19,9 @@ export const PlaylistList = ({ playlists, onSelect }: Props) => {
 
                 {playlists.map((playlist, index) => (
                     <div className={
-                        `list-group-item list-group-item-action ${selected === playlist.id ? 'active' : ''
+                        `list-group-item list-group-item-action ${parentSelected === playlist.id ? 'active' : ''
                         }`} key={playlist.id} onClick={() => {
-                            setSelected(playlist.id)
+                            // setSelected(playlist.id)
                             onSelect(playlist.id)
                         }}>
                         {index + 1}. {playlist.name}

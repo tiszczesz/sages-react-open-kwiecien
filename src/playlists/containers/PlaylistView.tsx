@@ -29,7 +29,7 @@ interface Props { }
 
 export const PlaylistView = (props: Props) => {
     const [mode, setMode] = useState<'details' | 'edit'>('details')
-    const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(playlistData[0])
+    const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(playlistData[2])
 
     const edit = () => setMode('edit')
     const cancel = () => setMode('details')
@@ -49,7 +49,11 @@ export const PlaylistView = (props: Props) => {
                 <div className="col">
                     <PlaylistList
                         onSelect={changePlaylist}
-                        selected="234"
+                        selected={selectedPlaylist?.id}
+                        playlists={playlistData} />
+                    <PlaylistList
+                        onSelect={changePlaylist}
+                        selected={selectedPlaylist?.id}
                         playlists={playlistData} />
                 </div>
                 <div className="col">
