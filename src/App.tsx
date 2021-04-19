@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import { PlaylistView } from './playlists/containers/PlaylistView';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React and profit !!!
-        </a>
-      </header>
+    <div className="container">
+      {/* .row>.col */}
+      <div className="row">
+        <div className="col">
+
+          <h1>Welcome React</h1>
+
+          <PlaylistView />
+        </div>
+      </div>
     </div>
   );
 }

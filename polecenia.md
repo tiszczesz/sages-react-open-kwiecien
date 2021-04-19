@@ -14,6 +14,9 @@ x64
 git --version
 git version 2.28.0.windows.1
 
+## VsCode - wtyczki:
+https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
+
 ## Create React App
 npm i -g create-react-app 
 create-react-app --help
@@ -24,4 +27,17 @@ create-react-app sages-react-open-kwiecien --template typescript
 cd sages-react-open-kwiecien
 npm start
 npm start -- --port 1234
+
+## Bootstrap CSS
+<!-- npm install react-bootstrap bootstrap -->
+npm install bootstrap
+
+mkdir -p src/playlists/containers
+mkdir -p src/playlists/components
+
+touch src/playlists/containers/PlaylistView.tsx
+
+touch src/playlists/components/PlaylistList.tsx
+touch src/playlists/components/PlaylistDetails.tsx
+touch src/playlists/components/PlaylistForm.tsx
 
