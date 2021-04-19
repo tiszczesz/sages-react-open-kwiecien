@@ -6,18 +6,23 @@ import { PlaylistList } from '../components/PlaylistList'
 import { Playlist } from '../model/Playlist'
 
 
-const playlistData: Playlist = {
+const playlistData: Playlist[] = [{
     id: '123',
-    name: 'My playlist',
+    name: 'My playlist 123',
     public: false,
     description: ' opis '
-}
+}, {
+    id: '234',
+    name: 'My playlist 234',
+    public: true,
+    description: ' opis '
+}, {
+    id: '345',
+    name: 'My playlist 345',
+    public: false,
+    description: ' opis '
+}]
 
-// enum Mode{
-//     details = 'details',
-//     edit = 'edit'
-// }
-// type Mode = 'details' | 'edit'
 
 
 interface Props { }
@@ -36,18 +41,20 @@ export const PlaylistView = (props: Props) => {
             {/* .row>.col*2 */}
             <div className="row">
                 <div className="col">
-                    <PlaylistList />
+                    <PlaylistList 
+                    selected="234"
+                    playlists={playlistData} />
                 </div>
                 <div className="col">
                     {/* {playlist.public ? 'Yes' : <p>No</p>} */}
 
                     {mode === 'details' ? <div>
-                        <PlaylistDetails playlist={playlistData} />
+                        <PlaylistDetails playlist={playlistData[0]} />
                         <button className="btn btn-info" onClick={edit}>Edit</button>
                     </div> : null}
 
                     {mode === 'edit' && <div>
-                        <PlaylistForm playlist={playlistData} />
+                        <PlaylistForm playlist={playlistData[0]} />
                         <button className="btn btn-danger" onClick={cancel}>Cancel</button>
                         <button className="btn btn-success" onClick={save}>Save</button>
                     </div>}
