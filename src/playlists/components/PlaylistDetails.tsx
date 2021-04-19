@@ -1,38 +1,27 @@
 import React from 'react'
+import { Playlist } from '../model/Playlist'
 import styles from './PlaylistDetails.module.css'
 
 // console.log(styles)
 
-interface Props { }
-
-const playlist = {
-    id: '123',
-    name: 'My playlist',
-    public: false,
-    description: ' opis '
+interface Props {
+    // playlist: any
+    playlist: Playlist
 }
 
-export const PlaylistDetails = (props: Props) => {
+export const PlaylistDetails = ({ playlist }: Props) => {
+    // const playlist = props.playlist
+    // const { playlist } = props
+
     return (
         <div>
             {/* dl>(dt{Name:}+dd{descrip})*3 */}
 
-            <dl id={'playlist_' + playlist.id}>
+            <dl id={'playlist_' + playlist.id} data-playlist-id={playlist.id} title={playlist.name}>
                 <dt>Name:</dt>
                 <dd>{playlist.name}</dd>
 
                 <dt>Public:</dt>
-                {/* <dd className="playlist-private-public" style={
-                    { color: playlist.public ? 'red' : 'green' }
-                }>{playlist.public ? 'Yes' : 'No'}</dd> */}
-
-                {/* <dd className={
-                    "playlistPrivatePublic " + playlist.public ? 'text-danger' : 'text-success'
-                }>
-                    {playlist.public ? 'Yes' : 'No'}
-                </dd> */}
-
-
                 <dd className={
                     `${styles.privatePublic} ${playlist.public ? styles.public : styles.private}`
                 }>
