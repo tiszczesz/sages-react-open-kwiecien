@@ -17,6 +17,7 @@ const playlistData: Playlist = {
 interface Props { }
 
 export const PlaylistView = (props: Props) => {
+
     return (
         <div>
             PlaylistView
@@ -27,9 +28,18 @@ export const PlaylistView = (props: Props) => {
                     <PlaylistList />
                 </div>
                 <div className="col">
-                    <PlaylistDetails playlist={playlistData} />
+                    
+                    <div>
+                        <PlaylistDetails playlist={playlistData} />
+                        <button className="btn btn-info">Edit</button>
+                    </div>
 
-                    <PlaylistForm playlist={playlistData} />
+                    <div>
+                        <PlaylistForm playlist={playlistData} />
+                        <button className="btn btn-danger">Cancel</button>
+                        <button className="btn btn-success">Save</button>
+                    </div>
+
                 </div>
             </div>
 

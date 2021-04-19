@@ -19,9 +19,6 @@ export const PlaylistForm = ({ playlist }: Props) => {
 
     return (
         <div>
-            PlaylistForm
-            {/* .form-group>label{Name:}+input.form-control */}
-
             <pre>{JSON.stringify({ name, isPublic, description }, null, 2)}</pre>
 
             <div className="form-group">
