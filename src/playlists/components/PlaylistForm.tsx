@@ -40,7 +40,8 @@ export const PlaylistForm = ({ playlist }: Props) => {
                 <textarea className="form-control" id="playlist_description" defaultValue={playlist.description}
                     onChange={event => setDescription(event.currentTarget.value)} />
             </div>
-
+            <button className="btn btn-danger" onClick={()=>{}}>Cancel</button>
+            <button className="btn btn-success" onClick={()=>{}}>Save</button>
         </div>
     )
 }

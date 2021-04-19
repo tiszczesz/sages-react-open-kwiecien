@@ -51,23 +51,19 @@ export const PlaylistView = (props: Props) => {
                         onSelect={changePlaylist}
                         selected={selectedPlaylist?.id}
                         playlists={playlistData} />
-                    <PlaylistList
-                        onSelect={changePlaylist}
-                        selected={selectedPlaylist?.id}
-                        playlists={playlistData} />
+                        
                 </div>
                 <div className="col">
                     {/* {playlist.public ? 'Yes' : <p>No</p>} */}
 
                     {mode === 'details' && selectedPlaylist ? <div>
                         <PlaylistDetails playlist={selectedPlaylist} />
-                        <button className="btn btn-info" onClick={edit}>Edit</button>
+                       
                     </div> : null}
 
                     {mode === 'edit' && selectedPlaylist && <div>
                         <PlaylistForm playlist={selectedPlaylist} />
-                        <button className="btn btn-danger" onClick={cancel}>Cancel</button>
-                        <button className="btn btn-success" onClick={save}>Save</button>
+                      
                     </div>}
 
                 </div>

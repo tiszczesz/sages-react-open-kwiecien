@@ -31,7 +31,7 @@ export const PlaylistDetails = ({ playlist }: Props) => {
                 <dt>Description:</dt>
                 <dd>{playlist.description}</dd>
             </dl>
-
+            <button className="btn btn-info" onClick={()=>{}}>Edit</button>
         </div>
     )
 }
