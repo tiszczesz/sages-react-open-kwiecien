@@ -31,40 +31,38 @@ export const PlaylistView = (props: Props) => {
     const [mode, setMode] = useState<'details' | 'edit'>('details')
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(playlistData[2])
 
-    const edit = () => setMode('edit')
+    const switchToEdit = () => setMode('edit')
     const cancel = () => setMode('details')
     const save = () => setMode('details')
 
     const changePlaylist = (id: Playlist['id']) => {
-        console.log(id)
         setSelectedPlaylist(playlistData.find(p => p.id === id))
     }
 
     return (
         <div>
-            PlaylistView
-
-            {/* .row>.col*2 */}
             <div className="row">
                 <div className="col">
                     <PlaylistList
                         onSelect={changePlaylist}
                         selected={selectedPlaylist?.id}
                         playlists={playlistData} />
-                        
+
                 </div>
                 <div className="col">
-                    {/* {playlist.public ? 'Yes' : <p>No</p>} */}
 
-                    {mode === 'details' && selectedPlaylist ? <div>
-                        <PlaylistDetails playlist={selectedPlaylist} />
-                       
-                    </div> : null}
+                    {mode === 'details' && selectedPlaylist ?
+                        <PlaylistDetails
+                            playlist={selectedPlaylist}
+                            onEdit={switchToEdit} />
+                        : null}
 
-                    {mode === 'edit' && selectedPlaylist && <div>
-                        <PlaylistForm playlist={selectedPlaylist} />
-                      
-                    </div>}
+                    {mode === 'edit' && selectedPlaylist &&
+                        <PlaylistForm
+                            playlist={selectedPlaylist}
+                            onCancel={cancel}
+                            onSave={save} />
+                    }
 
                 </div>
             </div>

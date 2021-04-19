@@ -5,18 +5,14 @@ import styles from './PlaylistDetails.module.css'
 // console.log(styles)
 
 interface Props {
-    // playlist: any
     playlist: Playlist
+    onEdit: () => void
 }
 
-export const PlaylistDetails = ({ playlist }: Props) => {
-    // const playlist = props.playlist
-    // const { playlist } = props
+export const PlaylistDetails = ({ playlist, onEdit }: Props) => {
 
     return (
         <div>
-            {/* dl>(dt{Name:}+dd{descrip})*3 */}
-
             <dl id={'playlist_' + playlist.id} data-playlist-id={playlist.id} title={playlist.name}>
                 <dt>Name:</dt>
                 <dd>{playlist.name}</dd>
@@ -31,7 +27,7 @@ export const PlaylistDetails = ({ playlist }: Props) => {
                 <dt>Description:</dt>
                 <dd>{playlist.description}</dd>
             </dl>
-            <button className="btn btn-info" onClick={()=>{}}>Edit</button>
+            <button className="btn btn-info" onClick={onEdit}>Edit</button>
         </div>
     )
 }

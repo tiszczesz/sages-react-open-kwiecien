@@ -3,12 +3,14 @@ import { Playlist } from '../model/Playlist'
 
 interface Props {
     playlist: Playlist
+    onCancel: () => void
+    onSave: () => void
 }
 
 // tree.child.cild2.hooks = ['placki2']
 // currentHooks = tree.child.cild2.hooks
 
-export const PlaylistForm = ({ playlist }: Props) => {
+export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
     const [name, setName] = useState(playlist.name)
     const [isPublic, setIsPublic] = useState(playlist.public)
     const [description, setDescription] = useState(playlist.description)
@@ -40,8 +42,8 @@ export const PlaylistForm = ({ playlist }: Props) => {
                 <textarea className="form-control" id="playlist_description" defaultValue={playlist.description}
                     onChange={event => setDescription(event.currentTarget.value)} />
             </div>
-            <button className="btn btn-danger" onClick={()=>{}}>Cancel</button>
-            <button className="btn btn-success" onClick={()=>{}}>Save</button>
+            <button className="btn btn-danger" onClick={onCancel}>Cancel</button>
+            <button className="btn btn-success" onClick={onSave}>Save</button>
         </div>
     )
 }
