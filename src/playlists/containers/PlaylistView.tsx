@@ -6,7 +6,7 @@ import { PlaylistList } from '../components/PlaylistList'
 import { Playlist } from '../model/Playlist'
 
 
-const playlist: Playlist = {
+const playlistData: Playlist = {
     id: '123',
     name: 'My playlist',
     public: false,
@@ -27,9 +27,9 @@ export const PlaylistView = (props: Props) => {
                     <PlaylistList />
                 </div>
                 <div className="col">
-                    <PlaylistDetails playlist={playlist} />
+                    <PlaylistDetails playlist={playlistData} />
 
-                    <PlaylistForm />
+                    <PlaylistForm playlist={playlistData} />
                 </div>
             </div>
 

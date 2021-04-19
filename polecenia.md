@@ -21,6 +21,9 @@ x64
 git --version
 git version 2.28.0.windows.1
 
+Chrome DevTools
+https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi
+
 ## VsCode - wtyczki:
 https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
 
