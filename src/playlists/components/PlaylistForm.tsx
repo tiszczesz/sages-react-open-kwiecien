@@ -22,10 +22,13 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
     const handleSave = () => {
         onSave({ ...playlist, name, public: isPublic, description })
     }
-
+    
+    console.log('playlist',playlist,document.getElementById('playlist_name'))
+    
     useEffect(() => {
-        console.log('effect')
-    })
+        console.log('playlist',playlist,document.getElementById('playlist_name'))
+        console.log('effect', )
+    }, [playlist])
 
 
     console.log('render')
