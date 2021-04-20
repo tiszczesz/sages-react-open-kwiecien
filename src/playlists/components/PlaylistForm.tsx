@@ -27,27 +27,27 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
       
 
     useLayoutEffect(()=>{
-        console.log('runs before render')
+        // console.log('runs before render')
     }/* ,[ ...deps ] */)
 
-    useEffect(() => { console.log('after each render!') })
+    // useEffect(() => { console.log('after each render!') })
 
     useEffect(() => {
-        console.log('after playlist change and render!')
+        // console.log('after playlist change and render!')
         setName(playlist.name)
         setIsPublic(playlist.public)
         setDescription(playlist.description)
     }, [playlist]) 
 
     useEffect(() => {
-        console.log('after first render only!')
+        // console.log('after first render only!')
         // document.getElementById('playlist_name')?.focus()
         // $(nameInputRef.current).datePicker()
         nameInputRef.current?.focus()
     }, [])
 
 
-    console.log('render virtual dom')
+    // console.log('render virtual dom')
     return (
         <div>
             <pre>{JSON.stringify({ ...playlist, name, isPublic, description }, null, 2)}</pre>

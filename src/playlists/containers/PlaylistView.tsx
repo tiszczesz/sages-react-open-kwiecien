@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PlaylistDetails } from '../components/PlaylistDetails'
 import { PlaylistForm } from '../components/PlaylistForm'
 import { PlaylistList } from '../components/PlaylistList'
@@ -29,29 +29,35 @@ interface Props { }
 
 export const PlaylistView = (props: Props) => {
     const [mode, setMode] = useState<'details' | 'edit' | 'create'>('details')
-    const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(playlistData[2])
+    const [selectedId, setselectedId] = useState<Playlist['id'] | undefined>(undefined)
+    const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(undefined)
     const [playlists, setPlaylists] = useState(playlistData)
+
+    useEffect(() => {
+        setSelectedPlaylist(selected => playlists.find(p => p.id === selectedId))
+    }, [selectedId, playlists])
 
     const switchToEdit = () => setMode('edit')
     const cancel = () => setMode('details')
     const saveChanged = (draft: Playlist) => {
         setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
-        setSelectedPlaylist(draft)
+        // setSelectedPlaylist(draft)
         setMode('details')
     }
     const saveDraft = (draft: Playlist) => {
         draft.id = Math.floor(Math.random() * Date.now()).toString()
         setPlaylists(playlists => [...playlists, draft])
-        setSelectedPlaylist(draft)
+        setselectedId(draft.id)
         setMode('details')
     }
     const removePlaylist = (id: Playlist['id']) => {
         setPlaylists(playlists => playlists.filter(p => p.id !== id))
-        setSelectedPlaylist(selected => selected?.id === id ? undefined : selected)
+        // setSelectedPlaylist(selected => selected?.id === id ? undefined : selected)
         setMode('details')
     }
     const changePlaylist = (id: Playlist['id']) => {
-        setSelectedPlaylist(selected => selected?.id !== id ? playlists.find(p => p.id === id) : undefined)
+        // setSelectedPlaylist(selected => selected?.id !== id ? playlists.find(p => p.id === id) : undefined)
+        setselectedId(id)
     }
     const createPlaylist = () => {
         setSelectedPlaylist({ id: '', description: '', name: '', public: false })
