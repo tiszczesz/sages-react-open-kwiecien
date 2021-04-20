@@ -13,20 +13,28 @@ export const SearchForm = ({ query: parentQuery, onSearch }: Props) => {
         queryRef.current?.focus()
     }, [])
 
+    useEffect(() => {
+        const handle = setTimeout(() => {
+            // console.log(query)
+            onSearch(query)
+        }, 500)
+
+        return () => clearTimeout(handle)
+    }, [query])
 
     return (
         <div>
             <div className="input-group mb-3">
 
                 <input type="text" className="form-control"
-                    value={query} 
+                    value={query}
                     ref={queryRef}
-                    placeholder="Search" 
-                    onKeyUp={ e => e.code === 'Enter' &&  onSearch(query)}
+                    placeholder="Search"
+                    onKeyUp={e => e.code === 'Enter' && onSearch(query)}
                     onChange={e => setQuery(e.currentTarget.value)} />
 
-                <button className="btn btn-outline-secondary" 
-                    onClick={() => onSearch(query)}>Search</button>
+                {/* <button className="btn btn-outline-secondary" 
+                    onClick={() => onSearch(query)}>Search</button> */}
             </div>
 
         </div>
