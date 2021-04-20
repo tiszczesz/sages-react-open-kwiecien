@@ -17,7 +17,7 @@ export const SearchForm = ({ query: parentQuery, onSearch }: Props) => {
         const handle = setTimeout(() => {
             // console.log(query)
             onSearch(query)
-        }, 500)
+        }, 400)
 
         return () => clearTimeout(handle)
     }, [query])

@@ -35,14 +35,18 @@ export const MusicSearchView = (props: Props) => {
     useEffect(() => {
         if (!query) return;
 
+        const handle = new AbortController()
+
         setIsLoading(true)
         setMessage('')
         setResults([])
-        fetch(`http://localhost:3000/data/${query}.json`)
+        fetch(`http://localhost:3000/data/${query}.json`, { signal: handle.signal })
             .then(resp => resp.json())
             .then(data => setResults(data))
-            .catch((e) => setMessage(e?.message))
-            .finally(() => setIsLoading(false))
+            .catch((e) => handle.signal.aborted || setMessage(e?.message))
+            .finally(() => handle.signal.aborted || setIsLoading(false))
+
+        return () => { handle.abort() }
     }, [query])
 
     return (
