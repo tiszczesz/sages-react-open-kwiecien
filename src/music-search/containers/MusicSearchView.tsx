@@ -33,12 +33,12 @@ export const MusicSearchView = (props: Props) => {
     useEffect(() => {
         if (!query) return;
 
-        
-            fetch('http://localhost:3000/data/albums.json?q=' + query)
+
+        fetch('http://localhost:3000/data/albums.json?q=' + query)
             .then(resp => resp.json())
             .then(data => setResults(data))
-            // .then(resp => console.log(resp))
-        
+        // .then(resp => console.log(resp))
+
 
     }, [query])
 
@@ -51,6 +51,9 @@ export const MusicSearchView = (props: Props) => {
             </div>
             <div className="row">
                 <div className="col">
+                    <p className="alert alert-danger">message</p>
+                    <p className="alert alert-info">Loading..</p>
+                    
                     <AlbumsCardGrid albums={results} />
                 </div>
             </div>
