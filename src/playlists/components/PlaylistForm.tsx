@@ -28,7 +28,7 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
 
     return (
         <div>
-            <pre>{JSON.stringify({ name, isPublic, description }, null, 2)}</pre>
+            <pre>{JSON.stringify({ ...playlist, name, isPublic, description }, null, 2)}</pre>
 
             <div className="form-group">
                 <label htmlFor="playlist_name">Name:</label>

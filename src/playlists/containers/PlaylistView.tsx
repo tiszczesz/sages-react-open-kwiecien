@@ -28,14 +28,20 @@ const playlistData: Playlist[] = [{
 interface Props { }
 
 export const PlaylistView = (props: Props) => {
-    const [mode, setMode] = useState<'details' | 'edit'>('details')
+    const [mode, setMode] = useState<'details' | 'edit' | 'create'>('details')
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(playlistData[2])
     const [playlists, setPlaylists] = useState(playlistData)
 
     const switchToEdit = () => setMode('edit')
     const cancel = () => setMode('details')
-    const save = (draft: Playlist) => {
+    const saveChanged = (draft: Playlist) => {
         setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
+        setSelectedPlaylist(draft)
+        setMode('details')
+    }
+    const saveDraft = (draft: Playlist) => {
+        draft.id = Math.floor(Math.random() * Date.now()).toString()
+        setPlaylists(playlists => [...playlists, draft])
         setSelectedPlaylist(draft)
         setMode('details')
     }
@@ -45,7 +51,11 @@ export const PlaylistView = (props: Props) => {
         setMode('details')
     }
     const changePlaylist = (id: Playlist['id']) => {
-        setSelectedPlaylist(playlists.find(p => p.id === id))
+        setSelectedPlaylist(selected => selected?.id !== id ? playlists.find(p => p.id === id) : undefined)
+    }
+    const createPlaylist = () => {
+        setSelectedPlaylist({ id: '', description: '', name: '', public: false })
+        setMode('create')
     }
 
     return (
@@ -59,9 +69,7 @@ export const PlaylistView = (props: Props) => {
                         onRemove={removePlaylist}
                     />
 
-                    <button className="btn btn-block btn-info mt-4">
-                        Create new playlist
-                    </button>
+                    <button className="btn btn-block btn-info mt-4" onClick={createPlaylist}>Create new playlist</button>
                 </div>
                 <div className="col">
 
@@ -75,8 +83,17 @@ export const PlaylistView = (props: Props) => {
                         <PlaylistForm
                             playlist={selectedPlaylist}
                             onCancel={cancel}
-                            onSave={save} />
+                            onSave={saveChanged} />
                     }
+
+                    {mode === 'create' && selectedPlaylist &&
+                        <PlaylistForm
+                            playlist={selectedPlaylist}
+                            onCancel={cancel}
+                            onSave={saveDraft} />
+                    }
+
+                    {!selectedPlaylist && <p className="alert alert-info">Please select playlist</p>}
 
                 </div>
             </div>
