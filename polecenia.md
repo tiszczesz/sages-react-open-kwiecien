@@ -29,6 +29,10 @@ https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snipp
 
 https://code.visualstudio.com/docs/editor/emmet
 
+https://quicktype.io/typescript
+https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype
+
+
 ## Create React App
 npm i -g create-react-app 
 create-react-app --help
