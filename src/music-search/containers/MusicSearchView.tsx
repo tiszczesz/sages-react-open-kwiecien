@@ -33,10 +33,12 @@ export const MusicSearchView = (props: Props) => {
     useEffect(() => {
         if (!query) return;
 
-        fetch('http://localhost:3000/data/albums.json?q=' + query)
+        
+            fetch('http://localhost:3000/data/albums.json?q=' + query)
             .then(resp => resp.json())
             .then(data => setResults(data))
             // .then(resp => console.log(resp))
+        
 
     }, [query])
 
