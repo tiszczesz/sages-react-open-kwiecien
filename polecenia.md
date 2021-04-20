@@ -83,3 +83,12 @@ yarn add swr axios
 
 npm i react-oauth2-hook immutable react-storage-hook
 yarn add react-oauth2-hook immutable react-storage-hook
+
+
+## Routing - change url to change screen
+
+npm install react-router-dom
+yarn add react-router-dom
+
+npm i --save-dev @types/react-router-dom
+yarn add @types/react-router-dom
