@@ -4,12 +4,14 @@ import { SearchForm } from '../components/SearchForm'
 import { useFetchAlbums } from '../../core/hooks/useFetchAlbums'
 import { useSearchAlbums } from '../../core/hooks/useSearchAlbums'
 
-interface Props { }
+interface Props {
+    token?: string
+}
 
-export const MusicSearchView = (props: Props) => {
+export const MusicSearchView = ({ token }: Props) => {
     // const [result, getAlbums] = useFetchAlbums()
     const [query, setQuery] = useState('')
-    const { data, error , loading } = useSearchAlbums(query)
+    const { data, error, loading } = useSearchAlbums(query, token)
 
     return (
         <div>
@@ -20,8 +22,9 @@ export const MusicSearchView = (props: Props) => {
             </div>
             <div className="row">
                 <div className="col">
+
                     {error && <p className="alert alert-danger">{error.message}</p>}
-                    {loading && <p className="alert alert-info">Loading..</p>}
+                    {query && loading && <p className="alert alert-info">Loading..</p>}
 
                     {data && <AlbumsCardGrid albums={data} />}
                 </div>

@@ -78,5 +78,8 @@ touch src/music-search/components/SearchForm.tsx
 
 ## SWR
 npm i swr axios
+yarn add swr axios 
 
-yarn add swr axios
+
+npm i react-oauth2-hook immutable react-storage-hook
+yarn add react-oauth2-hook immutable react-storage-hook
