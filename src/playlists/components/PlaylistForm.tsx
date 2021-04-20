@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Playlist } from '../model/Playlist'
 
 interface Props {
@@ -16,16 +16,19 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
     const [description, setDescription] = useState(playlist.description)
 
     const handleChange = (event: React.FormEvent<HTMLInputElement>): void => {
-        setName(event.currentTarget.value.replace(/\d/g, '*'))
+        setName(event.currentTarget.value) //.replace(/\d/g, '*'))
     }
 
     const handleSave = () => {
-        // { name, isPublic, description },
-        onSave({
-            ...playlist, name, public: isPublic, description
-        })
+        onSave({ ...playlist, name, public: isPublic, description })
     }
 
+    useEffect(() => {
+        console.log('effect')
+    })
+
+
+    console.log('render')
     return (
         <div>
             <pre>{JSON.stringify({ ...playlist, name, isPublic, description }, null, 2)}</pre>
