@@ -41,7 +41,6 @@ export const PlaylistView = (props: Props) => {
     const cancel = () => setMode('details')
     const saveChanged = (draft: Playlist) => {
         setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
-        // setSelectedPlaylist(draft)
         setMode('details')
     }
     const saveDraft = (draft: Playlist) => {
@@ -52,11 +51,9 @@ export const PlaylistView = (props: Props) => {
     }
     const removePlaylist = (id: Playlist['id']) => {
         setPlaylists(playlists => playlists.filter(p => p.id !== id))
-        // setSelectedPlaylist(selected => selected?.id === id ? undefined : selected)
         setMode('details')
     }
     const changePlaylist = (id: Playlist['id']) => {
-        // setSelectedPlaylist(selected => selected?.id !== id ? playlists.find(p => p.id === id) : undefined)
         setselectedId(id)
     }
     const createPlaylist = () => {
