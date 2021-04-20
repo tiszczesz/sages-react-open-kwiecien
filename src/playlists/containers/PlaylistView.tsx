@@ -53,6 +53,7 @@ export const PlaylistView = (props: Props) => {
                         selected={selectedPlaylist?.id}
                         playlists={playlists} />
 
+                <button className="btn btn-block btn-info mt-4">Create new playlist</button>
                 </div>
                 <div className="col">
 

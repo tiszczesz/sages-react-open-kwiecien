@@ -25,6 +25,8 @@ export const PlaylistList = ({ playlists, onSelect, selected: parentSelected }: 
                             onSelect(playlist.id)
                         }}>
                         {index + 1}. {playlist.name}
+
+                        <span className="close btn btn-light">&times;</span>
                     </div>
                 ))}
 
