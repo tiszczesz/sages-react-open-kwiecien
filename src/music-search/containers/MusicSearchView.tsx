@@ -1,36 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { useRequest } from '../../core/hooks/useRequest'
-import { AlbumView } from '../../core/model/Search'
+import React from 'react'
 import { AlbumsCardGrid } from '../components/AlbumsCardGrid'
 import { SearchForm } from '../components/SearchForm'
+import { useFetchAlbums } from '../../core/hooks/useFetchAlbums'
 
 interface Props { }
 
-const useFetchAlbums = () => {
-    const [query, setQuery] = useState('albums')
-    const {
-        results,
-        message,
-        isLoading,
-        execute
-    } = useRequest<AlbumView[]>(`http://localhost:3000/data/album.json`, {})
 
-
-    useEffect(() => {
-        execute(`http://localhost:3000/data/${query}.json`, {})
-    }, [query])
-
-    return [{ data: results, message, query, isLoading }, setQuery] as const
-}
-// https://github.com/schettino/react-request-hook
-// https://swr.vercel.app/getting-started
 
 
 export const MusicSearchView = (props: Props) => {
-
-    // const albumCtrl = useFetchAlbums()
-    // { albumCtrl.results && ... }
-
     const [result, getAlbums] = useFetchAlbums()
 
     return (
