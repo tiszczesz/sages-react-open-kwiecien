@@ -4,6 +4,10 @@ export interface AlbumsResponse {
     albums: Album[];
 }
 
+export interface AlbumsSearchResponse {
+    albums: PagingObject<Album>;
+}
+
 export interface Album {
     album_type:             string;
     artists:                Artist[];

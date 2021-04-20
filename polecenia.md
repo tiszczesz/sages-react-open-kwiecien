@@ -76,3 +76,7 @@ touch src/music-search/components/SearchForm.tsx
 // https://github.com/schettino/react-request-hook
 // https://swr.vercel.app/getting-started
 
+## SWR
+npm i swr axios
+
+yarn add swr axios
