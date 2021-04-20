@@ -23,7 +23,9 @@ interface Props {
 
 export const MusicSearchView = (props: Props) => {
     const [results, setResults] = useState<AlbumView[]>([])
-    const [query, setQuery] = useState('')
+    const [query, setQuery] = useState('albums')
+    const [message, setMessage] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     const searchAlbums = (query: string) => {
         console.log(query)
@@ -33,11 +35,14 @@ export const MusicSearchView = (props: Props) => {
     useEffect(() => {
         if (!query) return;
 
-
-        fetch('http://localhost:3000/data/albums.json?q=' + query)
+        setIsLoading(true)
+        setMessage('')
+        setResults([])
+        fetch(`http://localhost:3000/data/${query}.json`)
             .then(resp => resp.json())
             .then(data => setResults(data))
-        // .then(resp => console.log(resp))
+            .catch((e) => setMessage(e?.message))
+            .finally(() => setIsLoading(false))
 
 
     }, [query])
@@ -51,9 +56,9 @@ export const MusicSearchView = (props: Props) => {
             </div>
             <div className="row">
                 <div className="col">
-                    <p className="alert alert-danger">message</p>
-                    <p className="alert alert-info">Loading..</p>
-                    
+                    {message && <p className="alert alert-danger">{message}</p>}
+                    {isLoading && <p className="alert alert-info">Loading..</p>}
+
                     <AlbumsCardGrid albums={results} />
                 </div>
             </div>
