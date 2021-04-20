@@ -5,13 +5,13 @@ import { useFetchAlbums } from '../../core/hooks/useFetchAlbums'
 import { useSearchAlbums } from '../../core/hooks/useSearchAlbums'
 
 interface Props {
-    token?: string
+    // token?: string
 }
 
-export const MusicSearchView = ({ token }: Props) => {
+export const MusicSearchView = ({  }: Props) => {
     // const [result, getAlbums] = useFetchAlbums()
     const [query, setQuery] = useState('')
-    const { data, error, loading } = useSearchAlbums(query, token)
+    const { data, error, loading } = useSearchAlbums(query)
 
     return (
         <div>

@@ -3,20 +3,14 @@ import useSWR from "swr"
 import { AlbumsSearchResponse } from "../model/Search"
 
 
-export const useSearchAlbums = (query: string, token?: string) => {
+export const useSearchAlbums = (query: string) => {
 
-
-    const { data, error, isValidating } = useSWR(query, (query) => {
+    const { data, error } = useSWR(query, (query) => {
         return axios.get<AlbumsSearchResponse>(
             'https://api.spotify.com/v1/search', {
-            headers: {
-                Authorization: 'Bearer ' + token
-            },
             params: {
-                type: 'album',
-                q: query
+                type: 'album', q: query
             }
-
         }).then(res => res.data.albums.items)
     })
 
