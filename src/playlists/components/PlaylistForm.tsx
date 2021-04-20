@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Playlist } from '../model/Playlist'
 
 interface Props {
@@ -22,7 +22,9 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
     const handleSave = () => {
         onSave({ ...playlist, name, public: isPublic, description })
     }
-
+    
+    const nameInputRef = useRef<HTMLInputElement>(null)
+    
     useEffect(() => { console.log('after each render!') })
 
     useEffect(() => {
@@ -30,11 +32,13 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
         setName(playlist.name)
         setIsPublic(playlist.public)
         setDescription(playlist.description)
-    }, [playlist,/* , x, y, z */]) // Warning: React Hook useEffect has missing dependencies: ...
+    }, [playlist]) 
 
     useEffect(() => {
         console.log('after first render only!')
-        document.getElementById('playlist_name')?.focus()
+        // document.getElementById('playlist_name')?.focus()
+        // $(nameInputRef.current).datePicker()
+        nameInputRef.current?.focus()
     }, [])
 
 
@@ -45,7 +49,8 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
 
             <div className="form-group">
                 <label htmlFor="playlist_name">Name:</label>
-                <input type="text" className="form-control" id="playlist_name"
+
+                <input type="text" className="form-control" id="playlist_name" ref={nameInputRef}
                     value={name} onChange={handleChange} />
 
                 <p className="float-right">{name.length} / 170</p>
