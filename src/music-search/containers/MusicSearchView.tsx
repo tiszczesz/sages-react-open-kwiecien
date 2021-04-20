@@ -43,8 +43,6 @@ export const MusicSearchView = (props: Props) => {
             .then(data => setResults(data))
             .catch((e) => setMessage(e?.message))
             .finally(() => setIsLoading(false))
-
-
     }, [query])
 
     return (
