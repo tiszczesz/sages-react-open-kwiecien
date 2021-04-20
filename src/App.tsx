@@ -41,7 +41,7 @@ function App() {
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to="/search">Search</NavLink>
+              <NavLink className="nav-link" to="/search" exact={true}>Search</NavLink>
             </li>
 
             <li className="nav-item">
