@@ -1,5 +1,5 @@
 import React from 'react'
-import { Playlist } from '../model/Playlist'
+import { Playlist } from '../../core/model/Playlist'
 import styles from './PlaylistDetails.module.css'
 
 // console.log(styles)

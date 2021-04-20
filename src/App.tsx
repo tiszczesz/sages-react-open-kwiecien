@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { PlaylistView } from './playlists/containers/PlaylistView';
+import { MusicSearchView } from './music-search/containers/MusicSearchView';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
 
           <h1>Welcome React</h1>
 
-          <PlaylistView />
+          {/* <PlaylistView /> */}
+          <MusicSearchView/>
         </div>
       </div>
     </div>

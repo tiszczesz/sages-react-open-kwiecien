@@ -44,6 +44,7 @@ npm start -- --port 1234
 <!-- npm install react-bootstrap bootstrap -->
 npm install bootstrap
 
+## Playlists
 mkdir -p src/playlists/containers
 mkdir -p src/playlists/components
 
@@ -52,4 +53,18 @@ touch src/playlists/containers/PlaylistView.tsx
 touch src/playlists/components/PlaylistList.tsx
 touch src/playlists/components/PlaylistDetails.tsx
 touch src/playlists/components/PlaylistForm.tsx
+
+## Music-search
+mkdir -p src/music-search/containers
+mkdir -p src/music-search/components
+
+touch src/core/model/Search.tsx
+
+touch src/music-search/containers/MusicSearchView.tsx
+
+touch src/music-search/components/AlbumsCardGrid.tsx
+touch src/music-search/components/AlbumCard.tsx
+touch src/music-search/components/SearchForm.tsx
+
+
 

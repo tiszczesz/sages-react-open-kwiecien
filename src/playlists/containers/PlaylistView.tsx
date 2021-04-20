@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { PlaylistDetails } from '../components/PlaylistDetails'
 import { PlaylistForm } from '../components/PlaylistForm'
 import { PlaylistList } from '../components/PlaylistList'
-import { Playlist } from '../model/Playlist'
+import { Playlist } from '../../core/model/Playlist'
 
 
 const playlistData: Playlist[] = [{

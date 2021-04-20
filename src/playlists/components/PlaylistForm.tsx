@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Playlist } from '../model/Playlist'
+import { Playlist } from '../../core/model/Playlist'
 
 interface Props {
     playlist: Playlist
