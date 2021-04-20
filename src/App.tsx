@@ -4,6 +4,8 @@ import { PlaylistView } from './playlists/containers/PlaylistView';
 import { MusicSearchView } from './music-search/containers/MusicSearchView';
 import { OAuthCallback, useOAuth2Token } from 'react-oauth2-hook'
 
+
+
 function App() {
   const [token, getToken] = useOAuth2Token({
     authorizeUrl: "https://accounts.spotify.com/authorize",
@@ -16,8 +18,8 @@ function App() {
   const [showHide, setShowHide] = useState(true)
 
   return (<>
-
-    {!token && <OAuthCallback />}
+    {/* <SWRConfig value={{}}></SWRConfig> */}
+    {token && <OAuthCallback />}
 
     <div className="container">
       <div className="row">
