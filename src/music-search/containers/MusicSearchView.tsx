@@ -20,34 +20,32 @@ const useFetchAlbums = () => {
         execute(`http://localhost:3000/data/${query}.json`, {})
     }, [query])
 
-    return {
-        setQuery, results,
-        message, query,
-        isLoading,
-    }
+    return [{ data: results, message, query, isLoading }, setQuery] as const
 }
+// https://github.com/schettino/react-request-hook
+// https://swr.vercel.app/getting-started
 
 
 export const MusicSearchView = (props: Props) => {
 
     // const albumCtrl = useFetchAlbums()
     // { albumCtrl.results && ... }
-    
-    const { results, message, isLoading, query, setQuery } = useFetchAlbums()
+
+    const [result, getAlbums] = useFetchAlbums()
 
     return (
         <div>
             <div className="row">
                 <div className="col">
-                    <SearchForm query={query} onSearch={setQuery} />
+                    <SearchForm query={result.query} onSearch={getAlbums} />
                 </div>
             </div>
             <div className="row">
                 <div className="col">
-                    {message && <p className="alert alert-danger">{message}</p>}
-                    {isLoading && <p className="alert alert-info">Loading..</p>}
+                    {result.message && <p className="alert alert-danger">{result.message}</p>}
+                    {result.isLoading && <p className="alert alert-info">Loading..</p>}
 
-                    {results && <AlbumsCardGrid albums={results} />}
+                    {result.data && <AlbumsCardGrid albums={result.data} />}
                 </div>
             </div>
         </div>

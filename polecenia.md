@@ -71,4 +71,8 @@ touch src/music-search/components/AlbumCard.tsx
 touch src/music-search/components/SearchForm.tsx
 
 
+## Hooks
+
+// https://github.com/schettino/react-request-hook
+// https://swr.vercel.app/getting-started
 
