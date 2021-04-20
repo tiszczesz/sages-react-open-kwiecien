@@ -14,6 +14,13 @@ const albumsMock: AlbumView[] = [
     { id: "456", name: "Album 456", images: [{ height: 300, width: 300, url: 'https://www.placecage.com/c/600/600' }] },
 ]
 
+/* 
+    TODO:
+    - show mock albums in grid each in album card
+    - console.log query in parent when 'search' was cliked in form
+    - start with no results [] and switch to mocks when 'search' clicked
+*/
+
 export const MusicSearchView = (props: Props) => {
 
     const searchAlbums = (query: string) => {
