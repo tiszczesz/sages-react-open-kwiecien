@@ -22,13 +22,20 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
     const handleSave = () => {
         onSave({ ...playlist, name, public: isPublic, description })
     }
-    
-    console.log('playlist',playlist,document.getElementById('playlist_name'))
-    
+
+    useEffect(() => { console.log('after each render!') })
+
     useEffect(() => {
-        console.log('playlist',playlist,document.getElementById('playlist_name'))
-        console.log('effect', )
-    }, [playlist])
+        console.log('after playlist change and render!')
+        setName(playlist.name)
+        setIsPublic(playlist.public)
+        setDescription(playlist.description)
+    }, [playlist,/* , x, y, z */]) // Warning: React Hook useEffect has missing dependencies: ...
+
+    useEffect(() => {
+        console.log('after first render only!')
+        document.getElementById('playlist_name')?.focus()
+    }, [])
 
 
     console.log('render')
