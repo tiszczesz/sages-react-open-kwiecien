@@ -17,13 +17,16 @@ function App() {
 
   const [showHide, setShowHide] = useState(true)
 
+  if (window.location.pathname.includes('/callback')) {
+    return <OAuthCallback />
+  }
+  
   return (<>
     {/* <SWRConfig value={{}}></SWRConfig> */}
-    {token && <OAuthCallback />}
 
     <div className="container">
       <div className="row">
-        <div className="col"><a href="#" onClick={getToken}>Login</a></div>
+        <div className="col"><a href="#" onClick={getToken}>Login</a> {token}</div>
       </div>
     </div>
     <div className="container">
