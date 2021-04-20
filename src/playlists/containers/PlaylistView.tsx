@@ -39,7 +39,11 @@ export const PlaylistView = (props: Props) => {
         setSelectedPlaylist(draft)
         setMode('details')
     }
-
+    const removePlaylist = (id: Playlist['id']) => {
+        setPlaylists(playlists => playlists.filter(p => p.id !== id))
+        setSelectedPlaylist(selected => selected?.id === id ? undefined : selected)
+        setMode('details')
+    }
     const changePlaylist = (id: Playlist['id']) => {
         setSelectedPlaylist(playlists.find(p => p.id === id))
     }
@@ -51,9 +55,13 @@ export const PlaylistView = (props: Props) => {
                     <PlaylistList
                         onSelect={changePlaylist}
                         selected={selectedPlaylist?.id}
-                        playlists={playlists} />
+                        playlists={playlists}
+                        onRemove={removePlaylist}
+                    />
 
-                <button className="btn btn-block btn-info mt-4">Create new playlist</button>
+                    <button className="btn btn-block btn-info mt-4">
+                        Create new playlist
+                    </button>
                 </div>
                 <div className="col">
 
