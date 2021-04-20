@@ -4,7 +4,7 @@ import { PlaylistView } from './playlists/containers/PlaylistView';
 import { MusicSearchView } from './music-search/containers/MusicSearchView';
 import { OAuthCallback, useOAuth2Token } from 'react-oauth2-hook'
 
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Link, NavLink, Redirect, Route, Switch } from 'react-router-dom'
 
 function App() {
   const [showHide, setShowHide] = useState(false)
@@ -37,11 +37,15 @@ function App() {
           <ul className="navbar-nav">
 
             <li className="nav-item">
-              <a className="nav-link" href="#/playlists">Playlists</a>
+              <NavLink className="nav-link" to="/playlists">Playlists</NavLink>
             </li>
 
             <li className="nav-item">
-              <a className="nav-link" href="#/search">Search</a>
+              <NavLink className="nav-link" to="/search">Search</NavLink>
+            </li>
+
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/search/placki" activeClassName="active placki">Child</NavLink>
             </li>
 
           </ul>
@@ -62,6 +66,7 @@ function App() {
             <Redirect path="/" exact={true} to="/playlists" />
 
             <Route path="/playlists" component={PlaylistView} />
+            <Route path="/search/placki" component={MusicSearchView} />
             <Route path="/search" component={MusicSearchView} />
 
           </Switch>
