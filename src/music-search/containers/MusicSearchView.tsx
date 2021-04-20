@@ -6,8 +6,7 @@ import { SearchForm } from '../components/SearchForm'
 
 interface Props { }
 
-
-export const MusicSearchView = (props: Props) => {
+const useFetchAlbums = () => {
     const [query, setQuery] = useState('albums')
     const {
         results,
@@ -20,6 +19,21 @@ export const MusicSearchView = (props: Props) => {
     useEffect(() => {
         execute(`http://localhost:3000/data/${query}.json`, {})
     }, [query])
+
+    return {
+        setQuery, results,
+        message, query,
+        isLoading,
+    }
+}
+
+
+export const MusicSearchView = (props: Props) => {
+
+    // const albumCtrl = useFetchAlbums()
+    // { albumCtrl.results && ... }
+    
+    const { results, message, isLoading, query, setQuery } = useFetchAlbums()
 
     return (
         <div>
