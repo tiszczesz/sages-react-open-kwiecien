@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Playlist } from '../model/Playlist'
 
 interface Props {
@@ -24,7 +24,12 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
     }
     
     const nameInputRef = useRef<HTMLInputElement>(null)
-    
+      
+
+    useLayoutEffect(()=>{
+        console.log('runs before render')
+    }/* ,[ ...deps ] */)
+
     useEffect(() => { console.log('after each render!') })
 
     useEffect(() => {
@@ -42,7 +47,7 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
     }, [])
 
 
-    console.log('render')
+    console.log('render virtual dom')
     return (
         <div>
             <pre>{JSON.stringify({ ...playlist, name, isPublic, description }, null, 2)}</pre>
