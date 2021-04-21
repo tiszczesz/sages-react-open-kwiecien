@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Playlist } from '../../core/model/Playlist'
 
 interface Props {
@@ -7,13 +7,13 @@ interface Props {
     onSave: (draft: Playlist) => void
 }
 
-// tree.child.cild2.hooks = ['placki2']
-// currentHooks = tree.child.cild2.hooks
 
-export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
+export const PlaylistForm = React.memo(({ playlist, onCancel, onSave }: Props) => {
     const [name, setName] = useState(playlist.name)
     const [isPublic, setIsPublic] = useState(playlist.public)
     const [description, setDescription] = useState(playlist.description)
+
+    console.log('render');
 
 
     const handleSave = () => {
@@ -22,29 +22,16 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
 
     const nameInputRef = useRef<HTMLInputElement>(null)
 
-
-    useLayoutEffect(() => {
-        // console.log('runs before render')
-    }/* ,[ ...deps ] */)
-
-    // useEffect(() => { console.log('after each render!') })
-
     useEffect(() => {
-        // console.log('after playlist change and render!')
         setName(playlist.name)
         setIsPublic(playlist.public)
         setDescription(playlist.description)
     }, [playlist])
 
     useEffect(() => {
-        // console.log('after first render only!')
-        // document.getElementById('playlist_name')?.focus()
-        // $(nameInputRef.current).datePicker()
         nameInputRef.current?.focus()
     }, [])
 
-
-    // console.log('render virtual dom')
     return (
         <div>
             <pre>{JSON.stringify({ ...playlist, name, isPublic, description }, null, 2)}</pre>
@@ -75,4 +62,4 @@ export const PlaylistForm = ({ playlist, onCancel, onSave }: Props) => {
             <button className="btn btn-success" onClick={handleSave}>Save</button>
         </div>
     )
-}
+})

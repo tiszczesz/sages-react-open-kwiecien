@@ -1,9 +1,10 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { PlaylistDetails } from '../components/PlaylistDetails'
 import { PlaylistForm } from '../components/PlaylistForm'
 import { PlaylistList } from '../components/PlaylistList'
 import { Playlist } from '../../core/model/Playlist'
+import { SearchForm } from '../../music-search/components/SearchForm'
 
 
 const playlistData: Playlist[] = [{
@@ -32,75 +33,82 @@ export const PlaylistView = (props: Props) => {
     const [selectedId, setselectedId] = useState<Playlist['id'] | undefined>(undefined)
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(undefined)
     const [playlists, setPlaylists] = useState(playlistData)
+    const [filter, setFilter] = useState('')
 
     useEffect(() => {
         setSelectedPlaylist(selected => playlists.find(p => p.id === selectedId))
     }, [selectedId, playlists])
 
-    const switchToEdit = () => setMode('edit')
-    const cancel = () => setMode('details')
-    const saveChanged = (draft: Playlist) => {
+    const switchToEdit = useCallback(() => setMode('edit'), [])
+    const cancel = useCallback(() => setMode('details'), [])
+
+    const saveChanged = useCallback((draft: Playlist) => {
         setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
         setMode('details')
-    }
-    const saveDraft = (draft: Playlist) => {
+    }, [])
+
+    const saveDraft = useCallback((draft: Playlist) => {
         draft.id = Math.floor(Math.random() * Date.now()).toString()
         setPlaylists(playlists => [...playlists, draft])
         setselectedId(draft.id)
         setMode('details')
-    }
-    const removePlaylist = (id: Playlist['id']) => {
+    }, [])
+
+    const removePlaylist = useCallback((id: Playlist['id']) => {
         setPlaylists(playlists => playlists.filter(p => p.id !== id))
         setMode('details')
-    }
-    const changePlaylist = (id: Playlist['id']) => {
+    }, [])
+
+    const changePlaylist = useCallback((id: Playlist['id']) => {
         setselectedId(id)
-    }
-    const createPlaylist = () => {
+    }, [])
+
+    const createPlaylist = useCallback(() => {
         setSelectedPlaylist({ id: '', description: '', name: '', public: false })
         setMode('create')
-    }
+    }, [])
 
-    return (
-        <div>
-            <div className="row">
-                <div className="col">
-                    <PlaylistList
-                        onSelect={changePlaylist}
-                        selected={selectedPlaylist?.id}
-                        playlists={playlists}
-                        onRemove={removePlaylist}
-                    />
 
-                    <button className="btn btn-block btn-info mt-4" onClick={createPlaylist}>Create new playlist</button>
-                </div>
-                <div className="col">
+    return useMemo(() => <div>
+        <div className="row">
+            <div className="col">
+                <SearchForm query={filter} onSearch={setFilter} />
+                {filter}
+                <PlaylistList
+                    onSelect={changePlaylist}
+                    selected={selectedPlaylist?.id}
+                    playlists={playlists}
+                    onRemove={removePlaylist}
+                />
 
-                    {mode === 'details' && selectedPlaylist ?
-                        <PlaylistDetails
-                            playlist={selectedPlaylist}
-                            onEdit={switchToEdit} />
-                        : null}
-
-                    {mode === 'edit' && selectedPlaylist &&
-                        <PlaylistForm
-                            playlist={selectedPlaylist}
-                            onCancel={cancel}
-                            onSave={saveChanged} />
-                    }
-
-                    {mode === 'create' && selectedPlaylist &&
-                        <PlaylistForm
-                            playlist={selectedPlaylist}
-                            onCancel={cancel}
-                            onSave={saveDraft} />
-                    }
-
-                    {!selectedPlaylist && <p className="alert alert-info">Please select playlist</p>}
-
-                </div>
+                <button className="btn btn-block btn-info mt-4" onClick={createPlaylist}>Create new playlist</button>
             </div>
+            <div className="col">
 
+                {mode === 'details' && selectedPlaylist ?
+                    <PlaylistDetails
+                        playlist={selectedPlaylist}
+                        onEdit={switchToEdit} />
+                    : null}
+
+                {mode === 'edit' && selectedPlaylist &&
+                    <PlaylistForm
+                        playlist={selectedPlaylist}
+                        onCancel={cancel}
+                        onSave={saveChanged} />
+                }
+
+                {mode === 'create' && selectedPlaylist &&
+                    <PlaylistForm
+                        playlist={selectedPlaylist}
+                        onCancel={cancel}
+                        onSave={saveDraft} />
+                }
+
+                {!selectedPlaylist && <p className="alert alert-info">Please select playlist</p>}
+
+            </div>
         </div>
-    )
+
+    </div>, [selectedPlaylist, playlists, mode])
 }

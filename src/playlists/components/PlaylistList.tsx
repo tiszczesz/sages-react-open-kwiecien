@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Playlist } from '../../core/model/Playlist'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
     onRemove: (id: Playlist['id']) => void
 }
 
-export const PlaylistList = ({
+export const PlaylistList = React.memo(({
     playlists,
     selected: parentSelected,
     onSelect,
@@ -19,10 +19,7 @@ export const PlaylistList = ({
 
     return (
         <div>
-
-            {/* .list-group.list-group-flush>.list-group-item.list-group-item-action*3{Text} */}
             <div className="list-group list-group-flush">
-
                 {playlists.map((playlist, index) => (
                     <div className={
                         `list-group-item list-group-item-action ${parentSelected === playlist.id ? 'active' : ''
@@ -30,9 +27,10 @@ export const PlaylistList = ({
 
                         {index + 1}. {playlist.name}
 
-                        <span className="close btn btn-light" onClick={(e) =>{
+                        <span className="close btn btn-light" onClick={(e) => {
                             e.stopPropagation()
-                            onRemove(playlist.id)}}>&times;</span>
+                            onRemove(playlist.id)
+                        }}>&times;</span>
                     </div>
                 ))}
 
@@ -40,9 +38,4 @@ export const PlaylistList = ({
 
         </div>
     )
-}
-
-// (x,y) => { return x + 1}
-// (x) => { return x + 1}
-
-// x => x + 1
+})

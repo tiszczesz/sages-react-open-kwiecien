@@ -9,8 +9,7 @@ interface Props {
     onEdit: () => void
 }
 
-export const PlaylistDetails = ({ playlist, onEdit }: Props) => {
-
+export const PlaylistDetails = React.memo(({ playlist, onEdit }: Props) => {
     return (
         <div>
             <dl id={'playlist_' + playlist.id} data-playlist-id={playlist.id} title={playlist.name}>
@@ -30,4 +29,4 @@ export const PlaylistDetails = ({ playlist, onEdit }: Props) => {
             <button className="btn btn-info" onClick={onEdit}>Edit</button>
         </div>
     )
-}
+})

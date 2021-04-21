@@ -58,7 +58,7 @@ function App() {
 
             </ul>
             <div className="ml-auto nav-text">
-              <a href="#" onClick={getToken}>Login</a>
+              <span onClick={getToken}>Login</span>
             </div>
           </div>
         </div>
