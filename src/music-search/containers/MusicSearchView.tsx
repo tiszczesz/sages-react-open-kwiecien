@@ -23,7 +23,8 @@ export const MusicSearchView = (props: Props) => {
     }, [location.search])
 
     const search = useCallback((query: string) => {
-        history.push({ pathname: '/search', search: "?q=" + query })
+        // history.push({ pathname: '/search', search: "?q=" + query })
+        history.replace({ pathname: '/search', search: "?q=" + query })
     }, [])
 
     return (

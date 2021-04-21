@@ -21,7 +21,7 @@ function App() {
               <Route path="/callback" component={OAuthCallback} />
               <Redirect path="/" exact={true} to="/playlists" />
 
-              <Route path="/playlists" component={PlaylistView} />
+              <Route path="/playlists/:playlist_id?" component={PlaylistView} />
               <Route path="/search" component={MusicSearchView} />
             </Switch>
 

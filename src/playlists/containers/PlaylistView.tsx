@@ -5,6 +5,7 @@ import { PlaylistForm } from '../components/PlaylistForm'
 import { PlaylistList } from '../components/PlaylistList'
 import { Playlist } from '../../core/model/Playlist'
 import { SearchForm } from '../../music-search/components/SearchForm'
+import { RouteComponentProps, useHistory, useLocation, useParams } from 'react-router'
 
 
 const playlistData: Playlist[] = [{
@@ -26,7 +27,7 @@ const playlistData: Playlist[] = [{
 
 
 
-interface Props { }
+interface Props extends RouteComponentProps<{ playlist_id: string }> { }
 
 export const PlaylistView = (props: Props) => {
     const [mode, setMode] = useState<'details' | 'edit' | 'create'>('details')
@@ -34,6 +35,18 @@ export const PlaylistView = (props: Props) => {
     const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(undefined)
     const [playlists, setPlaylists] = useState(playlistData)
     const [filter, setFilter] = useState('')
+    // props.match.params.playlist_id
+
+    const { push, replace } = useHistory()
+    const { playlist_id } = useParams<{ playlist_id: string }>()
+
+    useEffect(() => {
+        setselectedId(playlist_id)
+    }, [playlist_id])
+
+    const changePlaylist = useCallback((id: Playlist['id']) => {
+        push('/playlists/' + id)
+    }, [])
 
     useEffect(() => {
         setSelectedPlaylist(selected => playlists.find(p => p.id === selectedId))
@@ -59,9 +72,6 @@ export const PlaylistView = (props: Props) => {
         setMode('details')
     }, [])
 
-    const changePlaylist = useCallback((id: Playlist['id']) => {
-        setselectedId(id)
-    }, [])
 
     const createPlaylist = useCallback(() => {
         setSelectedPlaylist({ id: '', description: '', name: '', public: false })
@@ -110,6 +120,6 @@ export const PlaylistView = (props: Props) => {
             </div>
         </div>
 
-    {/* eslint-disable-next-line react-hooks/exhaustive-deps */}
+        {/* eslint-disable-next-line react-hooks/exhaustive-deps */}
     </div>, [selectedPlaylist, playlists, mode])
 }
