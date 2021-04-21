@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useOAuth2Token } from 'react-oauth2-hook'
 import { SWRConfig } from 'swr'
@@ -25,8 +25,13 @@ export const useUser = () => {
     return user;
 }
 
+function isAxiosError(error: any): error is AxiosError {
+    return error.isAxiosError
+}
+
 export const UserProvider: React.FC = ({ children }) => {
     const [user, setUser] = useState<UserCtx['user']>(undefined)
+    const [needsLogin, setNeedsLogin] = useState(false)
 
     const [token, getToken, setToken] = useOAuth2Token({
         authorizeUrl: "https://accounts.spotify.com/authorize",
@@ -35,6 +40,37 @@ export const UserProvider: React.FC = ({ children }) => {
         // redirectUri: document.location.href + "callback",
         redirectUri: "http://localhost:3000/callback",
     })
+
+    useEffect(() => {
+        if (token && needsLogin) { setNeedsLogin(false) }
+        if (!needsLogin) { return }
+
+        getToken()
+    }, [needsLogin])
+
+    const login = useCallback(() => {
+        setNeedsLogin(true)
+    }, [getToken])
+
+    const logout = useCallback(() => {
+        setToken('')
+        setUser(undefined)
+    }, [setToken, setUser])
+
+    useEffect(() => {
+        const handle = axios.interceptors.response.use((config) => config, error => {
+            if (isAxiosError(error)) {
+                if (error.response?.status === 401) {
+                    // setTimeout(() => login(), 1000)
+                    login()
+                    // return axios.request(error.config)
+                    // console.log(error)
+                }
+            }
+            return Promise.reject(error);
+        })
+        return () => axios.interceptors.response.eject(handle)
+    }, [])
 
     useEffect(() => {
         const handle = axios.interceptors.request.use((config) => {
@@ -50,15 +86,6 @@ export const UserProvider: React.FC = ({ children }) => {
             setUser(resp.data)
         })
     }, [token])
-
-    const login = useCallback(() => {
-        getToken()
-    }, [getToken])
-
-    const logout = useCallback(() => {
-        setToken('')
-        setUser(undefined)
-    }, [setToken, setUser])
 
     return (
         <UserContext.Provider value={{
