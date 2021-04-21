@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useParams } from 'react-router'
 import { useAlbum } from '../../core/hooks/useSearchAlbums'
 import { Track } from '../../core/model/Track'
 import { AlbumCard } from '../components/AlbumCard'
@@ -19,7 +20,8 @@ interface Props { }
 
 
 export const AlbumDetails = (props: Props) => {
-    const { data, error, loading } = useAlbum('5Tby0U5VndHW0SomYO7Id7')
+    const { album_id } = useParams<{ album_id: string }>()
+    const { data, error, loading } = useAlbum(album_id)
     const [track, setTrack] = useState<Track | null>(null)
     const audioRef = useRef<HTMLAudioElement>(null)
 
