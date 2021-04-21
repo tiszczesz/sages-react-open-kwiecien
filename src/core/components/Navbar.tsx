@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { UserContext } from '../contexts/UserContext'
 
@@ -36,12 +36,13 @@ export const Navbar = (props: Props) => {
 
                         </ul>
                         <div className="ml-auto nav-text text-white">
-                            
-                            <UserContext.Consumer>{({ user, login, logout }) => <>
+
+                            {/* <UserContext.Consumer>{({ user, login, logout }) => <>
                                 {!user && <>Welcome Guest | <span className="btn-link" onClick={login}>Login</span></>}
                                 {user && <>Welcome {user.display_name} | <span className="btn-link" onClick={logout}>Logout</span></>}
-                            </>}</UserContext.Consumer>
-                            
+                            </>}</UserContext.Consumer> */}
+
+                            <UserProfileWidget />
 
                         </div>
                     </div>
@@ -49,4 +50,13 @@ export const Navbar = (props: Props) => {
             </nav>
         </div>
     )
+}
+
+export const UserProfileWidget = () => {
+    const { login, logout, user } = useContext(UserContext)
+
+    return useMemo(() => <>
+        {!user && <>Welcome Guest | <span className="btn-link" onClick={login}>Login</span></>}
+        {user && <>Welcome {user.display_name} | <span className="btn-link" onClick={logout}>Logout</span></>}
+    </>, [user, login, logout])
 }
