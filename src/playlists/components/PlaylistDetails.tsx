@@ -29,4 +29,4 @@ export const PlaylistDetails = React.memo(({ playlist, onEdit }: Props) => {
             <button className="btn btn-info" onClick={onEdit}>Edit</button>
         </div>
     )
-})
+}, (prev, next) => prev.playlist === next.playlist)
