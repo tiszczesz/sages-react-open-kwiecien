@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { AlbumsCardGrid } from '../components/AlbumsCardGrid'
 import { SearchForm } from '../components/SearchForm'
 import { useSearchAlbums } from '../../core/hooks/useSearchAlbums'
-import { RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps, useHistory, useLocation } from 'react-router-dom'
 
 interface Props extends RouteComponentProps {
 }
@@ -12,14 +12,18 @@ export const MusicSearchView = (props: Props) => {
     const [query, setQuery] = useState('')
     const { data, error, loading } = useSearchAlbums(query)
 
+    // Router hooks:
+    const location = useLocation()
+    const history = useHistory()
+
     useEffect(() => {
-        const params = new URLSearchParams(props.location.search);
+        const params = new URLSearchParams(location.search);
         const q = params.get('q')
         q && setQuery(q)
-    }, [props.location.search])
+    }, [location.search])
 
     const search = useCallback((query: string) => {
-        props.history.push({ pathname: '/search', search: "?q=" + query })
+        history.push({ pathname: '/search', search: "?q=" + query })
     }, [])
 
     return (
