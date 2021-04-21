@@ -98,3 +98,8 @@ https://redux.js.org/
 
 https://redux-toolkit.js.org/tutorials/quick-start
 
+## Build
+npm run build
+
+https://create-react-app.dev/docs/
+https://create-react-app.dev/docs/using-the-public-folder
