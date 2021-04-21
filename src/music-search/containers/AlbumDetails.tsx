@@ -20,20 +20,40 @@ interface Props { }
 export const AlbumDetails = (props: Props) => {
     const { data, error, loading } = useAlbum('5Tby0U5VndHW0SomYO7Id7')
 
+    if (error) {
+        return <p className="alert alert-danger">{error}</p>
+    }
+    if (!data) {
+        return <p className="alert alert-info">Loading</p>
+    }
+
     return (
         <div>
-            <h4>Album name ....</h4>
-            <small className="muted">album_id 5Tby0U5VndHW0SomYO7Id7</small>
+            <h3>{data.name}</h3>
+            <small className="muted">{data.id}</small>
+            <hr />
             <div className="row">
+
                 <div className="col">
-                    {/* <AlbumCard/> */}
+                    <AlbumCard album={data} />
                 </div>
+
                 <div className="col">
                     <dl>
                         <dt>Artist</dt>
-                        <dd>plackarz</dd>
+                        <dd>{data.artists[0]?.name}</dd>
+
+                        <dt>Release date</dt>
+                        <dd>{data.release_date}</dd>
                     </dl>
+
+                    <div className="list-group list-group-flush">
+                        {data.tracks?.items.map(track => <div className="list-group-item" key={track.id}>
+                            {track.name}
+                        </div>)}
+                    </div>
                 </div>
+
             </div>
         </div>
     )
