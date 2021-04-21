@@ -5,15 +5,13 @@ import useSWR, { SWRConfig } from 'swr'
 import { UserProfile } from '../model/UserProfile'
 
 interface UserCtx {
-    token: string | null
-    user: UserProfile | null
+    token?: string
+    user?: UserProfile
     login(): void
     logout(): void
 }
 
 const initialCtx: UserCtx = {
-    token: null,
-    user: null,
     login() { throw 'No Provider!! ' },
     logout() { throw 'No Provider!! ' }
 }
@@ -27,7 +25,7 @@ export const useUser = () => {
 }
 
 export const UserProvider: React.FC = ({ children }) => {
-    const [user, setUser] = useState<UserCtx['user']>(null)
+    const [user, setUser] = useState<UserCtx['user']>(undefined)
 
     const [token, getToken, setToken] = useOAuth2Token({
         authorizeUrl: "https://accounts.spotify.com/authorize",
@@ -58,12 +56,12 @@ export const UserProvider: React.FC = ({ children }) => {
 
     const logout = useCallback(() => {
         setToken('')
-        setUser(null)
+        setUser(undefined)
     }, [])
 
     return (
         <UserContext.Provider value={{
-            token: null,
+            token,
             user,
             login,
             logout
