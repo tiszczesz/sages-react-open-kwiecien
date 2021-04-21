@@ -1,7 +1,8 @@
 import React from 'react'
+import { useAlbum } from '../../core/hooks/useSearchAlbums'
 import { AlbumCard } from '../components/AlbumCard'
 
-interface Props {}
+interface Props { }
 
 /* TODO:
     - open http://localhost:3000/albums/5Tby0U5VndHW0SomYO7Id7
@@ -17,6 +18,8 @@ interface Props {}
 
 
 export const AlbumDetails = (props: Props) => {
+    const { data, error, loading } = useAlbum('5Tby0U5VndHW0SomYO7Id7')
+
     return (
         <div>
             <h4>Album name ....</h4>

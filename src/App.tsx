@@ -5,6 +5,7 @@ import { OAuthCallback } from 'react-oauth2-hook'
 
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { Navbar } from './core/components/Navbar';
+import { AlbumDetails } from './music-search/containers/AlbumDetails';
 
 function App() {
 
@@ -21,8 +22,10 @@ function App() {
             <Route path="/callback" component={OAuthCallback} />
             <Redirect path="/" exact={true} to="/playlists" />
 
+
             <Route path="/playlists/:playlist_id?" component={PlaylistView} />
             <Route path="/search" component={MusicSearchView} />
+            <Route path="/albums/:album_id" component={AlbumDetails} />
             <Route path="*" render={() => <h1>Page not found</h1>} />
           </Switch>
 

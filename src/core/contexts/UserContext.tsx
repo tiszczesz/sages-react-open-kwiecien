@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react'
 import { useOAuth2Token } from 'react-oauth2-hook'
 import { SWRConfig } from 'swr'
 import { UserProfile } from '../model/UserProfile'
@@ -41,6 +41,16 @@ export const UserProvider: React.FC = ({ children }) => {
         redirectUri: "http://localhost:3000/callback",
     })
 
+    const resetInterceptor = useCallback(() => {
+        return axios.interceptors.request.use((config) => {
+            config.headers['Authorization'] = 'Bearer ' + token;
+            return config
+        })
+    }, [token])
+    // Run callback ONLY once BEFORE all child components
+    useState(resetInterceptor)
+
+    // Deduplicate login requests
     useEffect(() => {
         if (token && needsLogin) { setNeedsLogin(false) }
         if (!needsLogin) { return }
@@ -57,31 +67,24 @@ export const UserProvider: React.FC = ({ children }) => {
         setUser(undefined)
     }, [setToken, setUser])
 
-    useEffect(() => {
-        const handle = axios.interceptors.response.use((config) => config, error => {
+    // Run ONLY once BEFORE all child components
+    useMemo(() => {
+        axios.interceptors.response.use((config) => config, error => {
             if (isAxiosError(error)) {
                 if (error.response?.status === 401) {
-                    // setTimeout(() => login(), 1000)
-                    login()
-                    // return axios.request(error.config)
-                    // console.log(error)
+                    login() // return axios.request(error.config)
                 }
             }
             return Promise.reject(error);
         })
-        return () => axios.interceptors.response.eject(handle)
     }, [])
 
     useEffect(() => {
-        const handle = axios.interceptors.request.use((config) => {
-            config.headers['Authorization'] = 'Bearer ' + token;
-            return config
-        })
-        return () => axios.interceptors.request.eject(handle)
-    }, [token])
-
-    useEffect(() => {
         if (!token) return;
+
+        // rerun callback - eject old handler, remeber new one
+        axios.interceptors.request.eject(resetInterceptor())
+
         axios.get<UserProfile>('https://api.spotify.com/v1/me').then(resp => {
             setUser(resp.data)
         })

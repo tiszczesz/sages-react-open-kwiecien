@@ -18,8 +18,8 @@ export const useSearchAlbums = (query: string) => {
 }
 
 export const useAlbum = (album_id: string) => {
-    const { data, error } = useSWR(album_id, (query) => {
-        return axios.get<Album>('https://api.spotify.com/v1/albums' + album_id).then(res => res.data)
+    const { data, error } = useSWR(album_id, (album_id) => {
+        return axios.get<Album>('https://api.spotify.com/v1/albums/' + album_id).then(res => res.data)
     })
 
     return { data, error, loading: !(data || error) }
