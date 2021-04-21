@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { UserContext } from '../contexts/UserContext'
 
 interface Props {
 
@@ -7,6 +8,7 @@ interface Props {
 
 export const Navbar = (props: Props) => {
     const [showHide, setShowHide] = useState(false)
+
     return (
         <div>
             <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
@@ -33,8 +35,14 @@ export const Navbar = (props: Props) => {
             </li> */}
 
                         </ul>
-                        <div className="ml-auto nav-text">
-                            {/* <span onClick={getToken}>Login</span> */}
+                        <div className="ml-auto nav-text text-white">
+                            
+                            <UserContext.Consumer>{({ user, login, logout }) => <>
+                                {!user && <>Welcome Guest | <span className="btn-link" onClick={login}>Login</span></>}
+                                {user && <>Welcome {user.display_name} | <span className="btn-link" onClick={logout}>Logout</span></>}
+                            </>}</UserContext.Consumer>
+                            
+
                         </div>
                     </div>
                 </div>

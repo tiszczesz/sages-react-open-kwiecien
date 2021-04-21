@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRequest } from './useRequest';
-import { AlbumView } from '../model/Search';
+import { AlbumView } from "../model/Album";
 
 export const useFetchAlbums = () => {
     const [query, setQuery] = useState('albums');

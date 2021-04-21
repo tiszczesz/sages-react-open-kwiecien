@@ -110,5 +110,6 @@ export const PlaylistView = (props: Props) => {
             </div>
         </div>
 
+    {/* eslint-disable-next-line react-hooks/exhaustive-deps */}
     </div>, [selectedPlaylist, playlists, mode])
 }

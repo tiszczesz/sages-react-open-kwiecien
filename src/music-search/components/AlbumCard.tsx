@@ -1,5 +1,5 @@
 import React from 'react'
-import { AlbumView } from '../../core/model/Search'
+import { AlbumView } from "../../core/model/Album"
 
 interface Props {
     album: AlbumView
