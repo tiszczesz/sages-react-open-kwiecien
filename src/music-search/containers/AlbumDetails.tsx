@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useAlbum } from '../../core/hooks/useSearchAlbums'
+import { Track } from '../../core/model/Track'
 import { AlbumCard } from '../components/AlbumCard'
 
 interface Props { }
@@ -19,12 +20,24 @@ interface Props { }
 
 export const AlbumDetails = (props: Props) => {
     const { data, error, loading } = useAlbum('5Tby0U5VndHW0SomYO7Id7')
+    const [track, setTrack] = useState<Track | null>(null)
+    const audioRef = useRef<HTMLAudioElement>(null)
+
+    useEffect(() => {
+        if (!audioRef.current) return;
+        audioRef.current.volume = 0.1;
+        audioRef.current.play()
+    }, [track])
 
     if (error) {
         return <p className="alert alert-danger">{error}</p>
     }
     if (!data) {
         return <p className="alert alert-info">Loading</p>
+    }
+
+    const playTrack = (track: Track) => {
+        setTrack(track)
     }
 
     return (
@@ -47,10 +60,15 @@ export const AlbumDetails = (props: Props) => {
                         <dd>{data.release_date}</dd>
                     </dl>
 
+                    <hr />
+                    <audio className="w-100" controls={true} src={track?.preview_url} ref={audioRef} />
+                    <hr />
+
                     <div className="list-group list-group-flush">
-                        {data.tracks?.items.map(track => <div className="list-group-item" key={track.id}>
-                            {track.name}
-                        </div>)}
+                        {data.tracks?.items.map(track =>
+                            <div className="list-group-item" key={track.id} onClick={() => playTrack(track)}>
+                                {track.name}
+                            </div>)}
                     </div>
                 </div>
 
