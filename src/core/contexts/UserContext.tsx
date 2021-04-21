@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useOAuth2Token } from 'react-oauth2-hook'
-import useSWR, { SWRConfig } from 'swr'
+import { SWRConfig } from 'swr'
 import { UserProfile } from '../model/UserProfile'
 
 interface UserCtx {
@@ -11,9 +11,10 @@ interface UserCtx {
     logout(): void
 }
 
+
 const initialCtx: UserCtx = {
-    login() { throw 'No Provider!! ' },
-    logout() { throw 'No Provider!! ' }
+    login() { throw Error('No Provider!! ') },
+    logout() { throw Error('No Provider!! ') }
 }
 
 export const UserContext = React.createContext(initialCtx)
@@ -52,12 +53,12 @@ export const UserProvider: React.FC = ({ children }) => {
 
     const login = useCallback(() => {
         getToken()
-    }, [])
+    }, [getToken])
 
     const logout = useCallback(() => {
         setToken('')
         setUser(undefined)
-    }, [])
+    }, [setToken, setUser])
 
     return (
         <UserContext.Provider value={{
@@ -75,4 +76,4 @@ export const UserProvider: React.FC = ({ children }) => {
     )
 }
 
-{/* <UserProvider> <App/> </UserProvider> */ }
+/* <UserProvider> <App/> </UserProvider> */

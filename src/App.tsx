@@ -4,7 +4,6 @@ import { MusicSearchView } from './music-search/containers/MusicSearchView';
 import { OAuthCallback } from 'react-oauth2-hook'
 
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { SWRConfig } from 'swr';
 import { Navbar } from './core/components/Navbar';
 
 function App() {

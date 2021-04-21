@@ -8,18 +8,22 @@ interface Props {
 export const SearchForm = ({ query: parentQuery, onSearch }: Props) => {
     const [query, setQuery] = useState(parentQuery)
     const queryRef = useRef<HTMLInputElement>(null)
+    // const isFirst = useRef(true)
+
+    useEffect(() => { queryRef.current?.focus() }, [])
+
+    useEffect(() => { setQuery(parentQuery) }, [parentQuery])
 
     useEffect(() => {
-        queryRef.current?.focus()
-    }, [])
+        if (parentQuery === query) return;
+        // if (isFirst.current) { isFirst.current = false; return; }
 
-    useEffect(() => {
         const handle = setTimeout(() => {
             onSearch(query)
         }, 400)
 
         return () => clearTimeout(handle)
-    }, [query, onSearch])
+    }, [query])
 
     return (
         <div>
