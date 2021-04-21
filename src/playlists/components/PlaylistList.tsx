@@ -4,8 +4,8 @@ import { Playlist } from '../../core/model/Playlist'
 interface Props {
     playlists: Playlist[],
     selected: Playlist['id'] | undefined
-    onSelect: (id: Playlist['id']) => void
-    onRemove: (id: Playlist['id']) => void
+    onSelect: (id: Playlist['id']) => any
+    onRemove: (id: Playlist['id']) => any
 }
 
 export const PlaylistList = React.memo(({

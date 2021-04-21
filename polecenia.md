@@ -92,3 +92,9 @@ yarn add react-router-dom
 
 npm i --save-dev @types/react-router-dom
 yarn add @types/react-router-dom
+
+## Redux
+https://redux.js.org/
+
+https://redux-toolkit.js.org/tutorials/quick-start
+

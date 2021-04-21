@@ -6,13 +6,19 @@ import reportWebVitals from './reportWebVitals';
 // import { HashRouter as Router } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserProvider } from './core/contexts/UserContext';
+import { store } from './store';
+import { Provider } from 'react-redux';
+
+// store.getState()
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
-      <Router>
-        <App />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
     </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')
