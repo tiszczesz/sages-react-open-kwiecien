@@ -9,25 +9,26 @@ import { Navbar } from './core/components/Navbar';
 function App() {
 
   return (<>
-    
-      <Navbar />
 
-      <div className="container">
+    <Navbar />
 
-        <div className="row">
-          <div className="col">
+    <div className="container">
 
-            <Switch>
-              <Route path="/callback" component={OAuthCallback} />
-              <Redirect path="/" exact={true} to="/playlists" />
+      <div className="row">
+        <div className="col">
 
-              <Route path="/playlists/:playlist_id?" component={PlaylistView} />
-              <Route path="/search" component={MusicSearchView} />
-            </Switch>
+          <Switch>
+            <Route path="/callback" component={OAuthCallback} />
+            <Redirect path="/" exact={true} to="/playlists" />
 
-          </div>
+            <Route path="/playlists/:playlist_id?" component={PlaylistView} />
+            <Route path="/search" component={MusicSearchView} />
+            <Route path="*" render={() => <h1>Page not found</h1>} />
+          </Switch>
+
         </div>
       </div>
+    </div>
   </>
   );
 }
