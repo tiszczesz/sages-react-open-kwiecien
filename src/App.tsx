@@ -1,12 +1,12 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { PlaylistView } from './playlists/containers/PlaylistView';
 import { MusicSearchView } from './music-search/containers/MusicSearchView';
 import { OAuthCallback, useOAuth2Token } from 'react-oauth2-hook'
 
-import { Link, NavLink, Redirect, Route, Switch } from 'react-router-dom'
+import { NavLink, Redirect, Route, Switch } from 'react-router-dom'
 import { SWRConfig } from 'swr';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 function App() {
   const [showHide, setShowHide] = useState(false)
@@ -35,7 +35,7 @@ function App() {
 
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
         <div className="container">
-          <a className="navbar-brand" href="#">MusicApp</a>
+          <NavLink className="navbar-brand" to="/">MusicApp</NavLink>
 
           <button className="navbar-toggler" type="button" onClick={() => setShowHide(!showHide)} aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

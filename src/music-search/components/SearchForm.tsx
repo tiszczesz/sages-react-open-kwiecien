@@ -14,12 +14,13 @@ export const SearchForm = ({ query: parentQuery, onSearch }: Props) => {
     }, [])
 
     useEffect(() => {
+        console.log('useEffect in form')
         const handle = setTimeout(() => {
-            // console.log(query)
             onSearch(query)
         }, 400)
 
         return () => clearTimeout(handle)
+        // eslint-disable-next-line  react-hooks/exhaustive-deps
     }, [query])
 
     return (
