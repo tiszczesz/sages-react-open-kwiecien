@@ -6,78 +6,38 @@ import { PlaylistList } from '../components/PlaylistList'
 import { Playlist } from '../../core/model/Playlist'
 import { SearchForm } from '../../music-search/components/SearchForm'
 import { RouteComponentProps, useHistory, useLocation, useParams } from 'react-router'
+import * as fromReducer from '../reducers/PlaylistsReducer'
 
 
-const playlistData: Playlist[] = [{
-    id: '123',
-    name: 'My playlist 123',
-    public: false,
-    description: ' opis '
-}, {
-    id: '234',
-    name: 'My playlist 234',
-    public: true,
-    description: ' opis '
-}, {
-    id: '345',
-    name: 'My playlist 345',
-    public: false,
-    description: ' opis '
-}]
+const playlistData: Playlist[] = []
 
 
 
 interface Props extends RouteComponentProps<{ playlist_id: string }> { }
 
 export const PlaylistView = (props: Props) => {
-    const [mode, setMode] = useState<'details' | 'edit' | 'create'>('details')
-    const [selectedId, setselectedId] = useState<Playlist['id'] | undefined>(undefined)
-    const [selectedPlaylist, setSelectedPlaylist] = useState<Playlist | undefined>(undefined)
-    const [playlists, setPlaylists] = useState(playlistData)
-    const [filter, setFilter] = useState('')
-    // props.match.params.playlist_id
+    const [{
+        filter, mode, playlists, selectedId, selectedPlaylist
+    }, dispatch] = fromReducer.usePlaylistsReducer()
 
     const { push, replace } = useHistory()
     const { playlist_id } = useParams<{ playlist_id: string }>()
 
     useEffect(() => {
-        setselectedId(playlist_id)
+        dispatch(fromReducer.changePlaylist(playlist_id))
     }, [playlist_id])
 
     const changePlaylist = useCallback((id: Playlist['id']) => {
         push('/playlists/' + id)
     }, [])
 
-    useEffect(() => {
-        setSelectedPlaylist(selected => playlists.find(p => p.id === selectedId))
-    }, [selectedId, playlists])
-
-    const switchToEdit = useCallback(() => setMode('edit'), [])
-    const cancel = useCallback(() => setMode('details'), [])
-
-    const saveChanged = useCallback((draft: Playlist) => {
-        setPlaylists(playlists => playlists.map(p => p.id === draft.id ? draft : p))
-        setMode('details')
-    }, [])
-
-    const saveDraft = useCallback((draft: Playlist) => {
-        draft.id = Math.floor(Math.random() * Date.now()).toString()
-        setPlaylists(playlists => [...playlists, draft])
-        setselectedId(draft.id)
-        setMode('details')
-    }, [])
-
-    const removePlaylist = useCallback((id: Playlist['id']) => {
-        setPlaylists(playlists => playlists.filter(p => p.id !== id))
-        setMode('details')
-    }, [])
-
-
-    const createPlaylist = useCallback(() => {
-        setSelectedPlaylist({ id: '', description: '', name: '', public: false })
-        setMode('create')
-    }, [])
-
+    const setFilter = useCallback((filter: string) => { dispatch(fromReducer.setFilter(filter)) }, []);
+    const switchToEdit = useCallback(() => { dispatch(fromReducer.switchToEdit()) }, []);
+    const cancel = useCallback(() => { dispatch(fromReducer.cancel()) }, []);
+    const saveChanged = useCallback((payload: Playlist) => { dispatch(fromReducer.saveChanged(payload)) }, []);
+    const saveDraft = useCallback((payload: Playlist) => { dispatch(fromReducer.saveDraft(payload)) }, []);
+    const removePlaylist = useCallback((id: Playlist['id']) => { dispatch(fromReducer.removePlaylist(id)) }, []);
+    const createPlaylist = useCallback(() => { dispatch(fromReducer.createPlaylist()) }, []);
 
     return useMemo(() => <div>
         <div className="row">
